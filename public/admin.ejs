@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <section>
+        <nav>
+            <h2>Menu Panel | Admin</h2>
+            <div class="search-bar">
+                <input class="search-input" type="text" placeholder="Search">
+            </div>
+            <i class="icon ri-file-add-fill add-data"></i>
+        </nav>
+
+        <!-- menu container -->
+        <div class="recipes-container">
+            <!-- recommends menu  -->
+            <%menus.forEach(e => {%>
+                <%if(e.tag){%>
+                <div id="menu-<%=e.menu.toLowerCase()%>" class="recipes-box">
+                    <div class="content">
+                        <h2><%=e.menu%></h2>
+                        <h3><%=e.price%>฿ 
+                            <%if(e.tag){%>
+                            <span><%=e.tag%></span>
+                            <%}%>
+                        </h3>
+                    </div>
+                    <img src=<%=e.image%>>
+                    <div class="edit-container">
+                        <h2 id="<%=e.id%>" class="edit">Edit</h2>
+                        <h2 id="<%=e.id%>" class="remove">Remove</h2>
+                    </div>
+                </div>
+                <%}%>
+                <%});%>
+                    <!-- other menu  -->
+                    <%menus.forEach(e => {%>
+                        <%if(!e.tag){%>
+                        <div id="menu-<%=e.menu.toLowerCase()%>" class="recipes-box">
+                            <div class="content">
+                                <h2><%=e.menu%></h2>
+                                <h3><%=e.price%>฿ 
+                                <%if(e.tag){%>
+                                <span><%=e.tag%></span>
+                                <%}%>
+                            </h3>
+                        </div>
+                        <img src=<%=e.image%>>
+                            <div class="edit-container">
+                                <h2 id="<%=e.id%>" class="edit">Edit</h2>
+                                <h2 id="<%=e.id%>" class="remove">Remove</h2>
+                            </div>
+                        </div>
+                        <%}%>
+                    <%});%>
+           
+            <!-- end  -->
+        </div>
+        <!-- end container -->
+
+        <div class="popup-container edit-container-noneActive">
+            <div class="close-popup"></div>
+            <div class="popup">
+                <form class="text-data-edit" method="post" action="/api/update/menu">
+                    <input name="menu" class="menu_name dataInput" placeholder="Menu Name" required>
+                    <input name="price" class="menu_price dataInput" type="number" placeholder="Price (฿)" required>
+                    <input name="image" class="menu_image dataInput" placeholder="Image Url" required>
+                    <input name="tag" class="menu_tag dataInput" placeholder="Tag">
+                    <input name="id" class="menu_id none">
+                    <button type="submit">Confrim</button>
+                </form>
+
+                <div class="recipes-box">
+                    <div class="content">
+                        <h2 class="pv-name">Menu Name</h2>
+                        <h3 class="pv-price">Price (฿)</h3>
+                    </div>
+                    <img class="pv-image" src="https://cdn.dribbble.com/users/1215152/screenshots/12858414/media/2899b4a569a01cdb3614b65e7f250092.gif">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="../js/edit_form.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>
